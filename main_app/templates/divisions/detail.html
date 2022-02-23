@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Division Details</h1>
+
+
+<div class="card">
+    <a href="{% url 'toys_detail' division.id %}">
+        <div class="card-content">
+            <span class="card-title">A <span class="{{ division.roster_size.lower }}-text">{{ division.roster_size }}</span> {{ division.year }}</span>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'divisions_update' division.id %}">Edit</a>
+            <a href="{% url 'divisions_delete' division.id %}">Delete</a>
+        </div>
+    </a>
+</div>
+
+{% endblock %}

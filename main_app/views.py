@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Player
+from django.views.generic.detail import DetailView
+from django.views.generic import ListView
+from .models import Player, Division
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -26,6 +28,10 @@ def players_detail(request, player_id):
   player = Player.objects.get(id=player_id)
   return render(request, 'players/detail.html', { 'player': player })
 
+def assoc_division(request, player_id, division_id):
+    # Note that you can pass a toy's id instead of the whole object
+    Division.objects.get(id=division_id).toys.add(division_id)
+    return redirect('detail', division_id=division_id)
 
 class PlayerCreate(CreateView):
   model = Player
@@ -40,3 +46,27 @@ class PlayerUpdate(UpdateView):
 class PlayerDelete(DeleteView):
   model = Player
   success_url = '/players/'
+
+class DivisionCreate(CreateView):
+    model = Division
+    fields = ('year', 'roster_size')
+
+
+class DivisionUpdate(UpdateView):
+    model = Division
+    fields = ('name', 'color')
+
+
+class DivisionDelete(DeleteView):
+    model = Division
+    success_url = '/divisions/'
+
+
+class DivisionDetail(DetailView):
+    model = Division
+    template_name = 'divisions/detail.html'
+
+
+class DivisionList(ListView):
+    model = Division
+    template_name = 'divisions/index.html'
