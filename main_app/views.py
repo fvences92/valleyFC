@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Player
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 # environment variables
@@ -18,5 +19,24 @@ def about(request):
 
 # Add new view
 def players_index(request):
-    
-    return render(request, 'players/index.html', { 'Player': Player})
+    players = Player.objects.all()
+    return render(request, 'players/index.html', { 'players': players})
+
+def players_detail(request, player_id):
+  player = Player.objects.get(id=player_id)
+  return render(request, 'players/detail.html', { 'player': player })
+
+
+class PlayerCreate(CreateView):
+  model = Player
+  fields = '__all__'
+  success_url = '/players/'
+
+class PlayerUpdate(UpdateView):
+  model = Player
+  # Let's disallow the renaming of a cat by excluding the name field!
+  fields = ['jersey', 'position', 'age']
+
+class PlayerDelete(DeleteView):
+  model = Player
+  success_url = '/players/'
