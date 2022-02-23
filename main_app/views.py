@@ -6,3 +6,6 @@ from django.http import HttpResponse
 # Define the home view
 def home(request):
   return HttpResponse('<h1>Valley FC is #1</h1>')
+
+def about(request):
+  return render(request, 'about.html')
