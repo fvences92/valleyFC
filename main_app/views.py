@@ -1,11 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Player
+from django.contrib.auth.forms import UserCreationForm
 
-# Add the following import
-from django.http import HttpResponse
+
+# environment variables
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'valleyfc'
+
 
 # Define the home view
 def home(request):
-  return HttpResponse('<h1>Valley FC is #1</h1>')
+  return render(request, 'home.html')
 
 def about(request):
   return render(request, 'about.html')
+
+
+# Add new view
+def players_index(request):
+    
+    return render(request, 'players/index.html', { 'Player': Player})
