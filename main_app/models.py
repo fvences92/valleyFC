@@ -3,8 +3,8 @@ from django.urls import reverse
 
 # Create your models here.
 class Division(models.Model):
-    year = models.CharField(max_length=50)
-    roster_size= models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=50)
 
     def get_absolute_url(self):
         return reverse('divisions_detail', kwargs={'pk': self.id})
@@ -14,6 +14,7 @@ class Player(models.Model):  # Note that parens are optional if not inheriting f
     jersey = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     age = models.IntegerField()
+    divisions = models.ManyToManyField(Division)
 
     def __str__(self):
       return self.name

@@ -30,7 +30,7 @@ def players_detail(request, player_id):
 
 def assoc_division(request, player_id, division_id):
     # Note that you can pass a toy's id instead of the whole object
-    Division.objects.get(id=division_id).toys.add(division_id)
+    Division.objects.get(id=division_id).divisions.add(division_id)
     return redirect('detail', division_id=division_id)
 
 class PlayerCreate(CreateView):
@@ -49,7 +49,7 @@ class PlayerDelete(DeleteView):
 
 class DivisionCreate(CreateView):
     model = Division
-    fields = ('year', 'roster_size')
+    fields = ('name', 'color')
 
 
 class DivisionUpdate(UpdateView):
