@@ -8,7 +8,8 @@
 <div class="card">
     <a href="{% url 'divisions_detail' division.id %}">
         <div class="card-content">
-            <span class="card-title">Roster Size: <span class="{{ division.color.lower }}-text">{{ division.color }}</span> {{ division.name }}</span>
+            <span class="card-title">Coach: <span class="{{ division.color.lower }}-text">{{ division.color }}</span> <br><br>
+            Year: {{ division.name }}</span>
         </div>
         <div class="card-action">
             <a href="{% url 'divisions_update' division.id %}">Edit</a>
