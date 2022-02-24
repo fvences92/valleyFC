@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Player Stat Record</h1>
+<h1 style="text-align: center;">Player Stat Record</h1>
 <div class="row">
     <div class="col s6">
         <div class="card">
@@ -23,7 +23,7 @@
     <div class="col s6">
         <form action="{% url 'add_record' player.id %}" method="post">
             {% csrf_token %} {{ record_form.as_p }}
-            <input type="submit" class="btn green" value="Add Stat" />
+            <input type="submit" class="btn burgundy" value="Add Stat" />
         </form>
         <table class="striped">
             <thead>
