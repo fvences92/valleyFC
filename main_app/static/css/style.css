@@ -13,6 +13,7 @@ body {
   
   footer {
     padding-top: 0;
+    color: gray;
     
   }
 
@@ -21,9 +22,12 @@ img {
 }
 
 ul {
-  background-color: rgb(54, 0, 0);
+  background-color: rgb(63, 2, 2);
+  color: yellow;
+  
 }
 
 nav {
-  background-color: rgb(54, 0, 0);
+  background-color: rgb(63, 0, 0);
+  color: gray;
 }
