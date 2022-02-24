@@ -36,12 +36,7 @@ class Player(models.Model):  # Note that parens are optional if not inheriting f
 
 class Record(models.Model):
     date = models.DateField('Stat Date')
-    stat = models.CharField(
-        max_length=1,
-        choices=STATS,
-        default=STATS[0][0]
-    )
-
+    stat = models.CharField(max_length=1, choices=STATS)
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -49,4 +44,4 @@ class Record(models.Model):
 
     # change the default sort
     class Meta:
-        ordering = ['-date']
+        ordering = ['-date', 'stat']
