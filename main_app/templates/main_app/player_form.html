@@ -1,21 +1,20 @@
-
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block content %}
 
 {% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+    <h1>Edit {{object.name}}'s information</h1>
 {% else %}
-<h1>Add Player</h1>
+    <h1>Add a new Player</h1>
 {% endif %}
-<!-- Leaving the action empty makes the form post to the same url used to display it -->
+
 <form action="" method="post">
-  <!-- Django requires the following for security purposes -->
-  {% csrf_token %}
-  <table>
-    <!-- Render the inputs inside of <tr>s & <td>s -->
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="submit" class="btn" />
+    {% csrf_token %}
+    <!-- We must always use this tag in our forms -->
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input class="btn green" type="submit" value="{% if object %} Edit {% else %} Add {% endif %}">
 </form>
+
 {% endblock %}
