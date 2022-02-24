@@ -9,8 +9,6 @@ STATS = (
     ('A', 'Assist'),
     ('B', 'Block'),
 )
-# Create your models here.
-
 
 class Division(models.Model):
     name = models.CharField(max_length=50)
@@ -38,7 +36,7 @@ class Player(models.Model):  # Note that parens are optional if not inheriting f
 
 class Record(models.Model):
     date = models.DateField('Stat Date')
-    stat = models.CharField(max_length=1, choices=STATS, default=[0][0])
+    stat = models.CharField(max_length=1, choices=STATS)
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
     def __str__(self):
