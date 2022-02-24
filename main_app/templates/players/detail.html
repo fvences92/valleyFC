@@ -1,104 +1,105 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1>Player Details</h1>
-
-<div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ player.name }}</span>
-        <p>Jersey: {{ player.jersey }}</p>
-        <p>Position: {{ player.position }}</p>
-        {% if player.age > 0 %}
-        <p>Age: {{ player.age }}</p>
-        {% else %}
-        <p>Age: PeeWee</p>
-        {% endif %}
+]<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ player.name }}</span>
+                <p>Jersey: {{ player.jersey }}</p>
+                <p>Position: {{ player.position }}</p>
+                {% if player.age > 0 %}
+                <p>Age: {{ player.age }}</p>
+                {% else %}
+                <p>Age: PeeWee</p>
+                {% endif %}
+            </div>
+            <div class="card-action">
+                <a href="{% url 'players_update' player.id %}">Edit</a>
+                <a href="{% url 'players_delete' player.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-    <div class="card-action">
-        <a href="{% url 'players_update' player.id %}">Edit</a>
-        <a href="{% url 'players_delete' player.id %}">Delete</a>
+    <div class="col s6">
+        <form action="{% url 'add_record' player.id %}" method="post">
+            {% csrf_token %} {{ record_form.as_p }}
+            <input type="submit" class="btn green" value="Add Record" />
+        </form>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Stat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for in player.record_set.all %}
+                <tr>
+                    <td>{{record.date}}</td>
+                    <td>{{record.get_stat_display}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-</div>
-</div>
-<div class="col s6">
-    <form action="{% url 'add_record' player.id %}" method="post">
-        {% csrf_token %} {{ record_form.as_p }}
-        <input type="submit" class="btn green" value="Add Record" />
-    </form>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Stat</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for  in player.record_set.all %}
-            <tr>
-                <td>{{record.date}}</td>
-                <td>{{record.get_stat_display}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
 </div>
 
 <hr />
 <div class="row">
 
-<div class="col s6">
-    <h3>{{ player.name }}'s Division</h3>
-    {% if player.divisions.count %} {% for division in player.divisions.all %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">
-                A <span class="{{ division.color.lower }}-text">
-                    {{ division.color }}</span> {{ division.name }}
-            </span>
+    <div class="col s6">
+        <h3>{{ player.name }}'s Division</h3>
+        {% if player.divisions.count %} {% for division in player.divisions.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    A <span class="{{ division.color.lower }}-text">
+                        {{ division.color }}</span> {{ division.name }}
+                </span>
+            </div>
         </div>
+        {% endfor %} {% else %}
+        <h5>No Division :(</h5>
+        {% endif %}
     </div>
-    {% endfor %} {% else %}
-    <h5>No Division :(</h5>
-    {% endif %}
-</div>
 
 
-<!-- Available toys will come after this line -->
-<div class="col s6">
-    <h3>Qualified Divisions</h3>
-    {% if divisions.count %}
-    {% for division in divisions.all %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">
-                A <span class="{{ division.color }}-text">{{ division.color }}</span> {{ division.name }}
-            </span>
+    <!-- Available toys will come after this line -->
+    <div class="col s6">
+        <h3>Qualified Divisions</h3>
+        {% if divisions.count %}
+        {% for division in divisions.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    A <span class="{{ division.color }}-text">{{ division.color }}</span> {{ division.name }}
+                </span>
+            </div>
+            <div class="card-action">
+                <form action="{% url 'assoc_division' player.id division.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Add</button>
+                </form>
+            </div>
         </div>
-        <div class="card-action">
-            <form action="{% url 'assoc_division' player.id division.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">Add</button>
-            </form>
-        </div>
+        {% endfor %}
+        {% else %}
+        <h5>{{player.name}} Already Plays for all Divisions</h5>
+        {% endif %}
     </div>
-    {% endfor %}
-    {% else %}
-    <h5>{{cat.name}} Already Plays for all Divisions</h5>
-    {% endif %}
-</div>
 </div>
 
 <script>
-var dateEl = document.getElementById('id_date');
-M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
-});
+    var dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
 
-// add additional JS to initialize select below
-var selectEl = document.getElementById('id_meal');
-M.FormSelect.init(selectEl);
+    // add additional JS to initialize select below
+    var selectEl = document.getElementById('id_stat');
+    M.FormSelect.init(selectEl);
 </script>
 {% endblock %}
