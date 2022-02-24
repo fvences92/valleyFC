@@ -9,8 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Player, Division
 from .forms import RecordForm
-import boto3
-import uuid
+
 
 
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
