@@ -16,4 +16,5 @@ urlpatterns = [
     path('divisions/<int:pk>/update/', views.DivisionUpdate.as_view(), name='divisions_update'),
     path('divisions/<int:pk>/delete/', views.DivisionDelete.as_view(), name='divisions_delete'),
     path('players/<int:player_id>/assoc_division/<int:division_id>/', views.assoc_division, name='assoc_division'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]
