@@ -22,8 +22,6 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-
-# Add new view
 def players_index(request):
     players = Player.objects.all()
     return render(request, 'players/index.html', { 'players': players})
@@ -37,7 +35,7 @@ def players_detail(request, player_id):
   # displaying unassociated divisions
   divisions_player_doesnt_have = Division.objects.exclude(id__in = player.divisions.all().values_list('id'))
 
-  return render(request, 'cats/detail.html', {
+  return render(request, 'players/detail.html', {
     # include the player and record_form in the context
     'player': player,
     'record_form': record_form,
@@ -60,7 +58,7 @@ def assoc_division(request, player_id, division_id):
 class PlayerCreate(CreateView):
   model = Player
   fields = '__all__'
-  success_url = '/players/'
+  #success_url = '/players/'
 
 class PlayerUpdate(UpdateView):
   model = Player

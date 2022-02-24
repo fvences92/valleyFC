@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
@@ -12,8 +11,8 @@
             <span class="card-title">A <span class="{{ division.color.lower }}-text">{{ division.color }}</span> {{ division.name }}</span>
         </div>
         <div class="card-action">
-            <a href="{% url 'divisions_update' toy.id %}">Edit</a>
-            <a href="{% url 'divisions_delete' toy.id %}">Delete</a>
+            <a href="{% url 'divisions_update' division.id %}">Edit</a>
+            <a href="{% url 'divisions_delete' division.id %}">Delete</a>
         </div>
     </a>
 </div>
