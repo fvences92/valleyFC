@@ -10,7 +10,9 @@ Version 1.0
 * HTML
 
 ## Screenshots 
-![Home](/https://imgur.com/a/Bi1Zt9B)v
+![Home](/Home.png)
+![About](/About.png)
+![Details](/Detail.png)
 
  ## Getting Started
  [click here](https://valleyfc.herokuapp.com/) to deploy the application!
