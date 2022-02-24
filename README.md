@@ -10,7 +10,7 @@ Version 1.0
 * HTML
 
 ## Screenshots 
-![Home](/Home.png)
+![Home](https://www.imgur.com/a/Bi1Zt9B)
 ![About](/About.png)
 ![Details](/Detail.png)
 
