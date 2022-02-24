@@ -18,7 +18,9 @@ Version 1.0
  [click here](https://valleyfc.herokuapp.com/) to deploy the application!
 
  ## Future Enhancements
- * Player Images
+ * Player/Division Images
  * Add User Profiles for each player/coach
  * Improve styling
  * Improve mobile wesbite
+ * Add additional stat options
+ * Add animations and Media
