@@ -5,6 +5,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Player, Division
 from .forms import RecordForm
 import boto3
@@ -34,20 +36,20 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
+@login_required
 def home(request):
   return render(request, 'home.html')
 
-
+@login_required
 def about(request):
   return render(request, 'about.html')
 
-
+@login_required
 def players_index(request):
-    players = Player.objects.all()
+    players = Player.objects.filter(user=request.user)
     return render(request, 'players/index.html', { 'players': players})
 
-
+@login_required
 def players_detail(request, player_id):
   player = Player.objects.get(id=player_id)
   # instantiate RecordForm to be rendered in the template
@@ -63,7 +65,7 @@ def players_detail(request, player_id):
     'divisions' : divisions_player_doesnt_have,
   })
 
-
+@login_required
 def add_record(request, player_id):
     form = RecordForm(request.POST)
     if form.is_valid():
@@ -72,12 +74,13 @@ def add_record(request, player_id):
         new_record.save()
     return redirect('detail', player_id=player_id)
 
+@login_required
 def assoc_division(request, player_id, division_id):
   # Note that you can pass a toy's id instead of the whole object
    Player.objects.get(id=player_id).divisions.add(division_id)
    return redirect('detail', player_id=player_id)
 
-class PlayerCreate(CreateView):
+class PlayerCreate(LoginRequiredMixin, CreateView):
   model = Player
   fields = ('name','jersey', 'position', 'age')
   success_url = '/players/'
@@ -86,35 +89,35 @@ class PlayerCreate(CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class PlayerUpdate(UpdateView):
+class PlayerUpdate(LoginRequiredMixin, UpdateView):
   model = Player
   # Let's disallow the renaming of a player by excluding the name field!
   fields = ('name', 'jersey', 'position', 'age')
 
-class PlayerDelete(DeleteView):
+class PlayerDelete(LoginRequiredMixin, DeleteView):
   model = Player
   success_url = '/players/'
 
-class DivisionCreate(CreateView):
+class DivisionCreate(LoginRequiredMixin, CreateView):
     model = Division
     fields = ('name', 'color')
 
 
-class DivisionUpdate(UpdateView):
+class DivisionUpdate(LoginRequiredMixin, UpdateView):
     model = Division
     fields = ('name', 'color')
 
 
-class DivisionDelete(DeleteView):
+class DivisionDelete(LoginRequiredMixin, DeleteView):
     model = Division
     success_url = '/divisions/'
 
 
-class DivisionDetail(DetailView):
+class DivisionDetail(LoginRequiredMixin, DetailView):
     model = Division
     template_name = 'divisions/detail.html'
 
 
-class DivisionList(ListView):
+class DivisionList(LoginRequiredMixin, ListView):
     model = Division
     template_name = 'divisions/index.html'
