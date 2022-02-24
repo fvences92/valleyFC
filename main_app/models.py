@@ -25,7 +25,7 @@ class Player(models.Model):  # Note that parens are optional if not inheriting f
     position = models.CharField(max_length=100)
     age = models.IntegerField()
     divisions = models.ManyToManyField(Division)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name

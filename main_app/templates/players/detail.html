@@ -33,12 +33,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for in player.record_set.all %}
+                {% for record in player.record_set.all%}
                 <tr>
                     <td>{{record.date}}</td>
                     <td>{{record.get_stat_display}}</td>
                 </tr>
-                {% endfor %}
+                {% endfor%}
             </tbody>
         </table>
     </div>
@@ -60,7 +60,7 @@
         </div>
         {% endfor %} {% else %}
         <h5>No Division :(</h5>
-        {% endif %}
+        {% endif%}
     </div>
 
 
