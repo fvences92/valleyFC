@@ -35,11 +35,10 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-@login_required
+
 def home(request):
   return render(request, 'home.html')
 
-@login_required
 def about(request):
   return render(request, 'about.html')
 
@@ -112,11 +111,11 @@ class DivisionDelete(LoginRequiredMixin, DeleteView):
     success_url = '/divisions/'
 
 
-class DivisionDetail(LoginRequiredMixin, DetailView):
+class DivisionDetail(DetailView):
     model = Division
     template_name = 'divisions/detail.html'
 
 
-class DivisionList(LoginRequiredMixin, ListView):
+class DivisionList(ListView):
     model = Division
     template_name = 'divisions/index.html'
